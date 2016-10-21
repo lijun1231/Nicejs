@@ -1,0 +1,80 @@
+<div class="header" id="main-header">
+    <div class="header-mod" v-show="nav.mod==0">
+        <i class="icon icon-01" v-on:click="switchNav(1)"></i>
+        <div class="header-swiper swiper-container" id="header-swiper">
+            <span class="header-slider-con swiper-wrapper">
+                <em :class="['swiper-slide','f-left',{on:!query_tag_id}]" data-href="-tag_id">全部</em>
+                <em :class="['swiper-slide','f-left',{on:tag.tag_id==query_tag_id}]" data-href="^tag_id={{tag.tag_id}}" v-for="tag in atags">{{tag.tag_name}}</em>
+            </span>
+        </div>
+        <i class="icon icon-05 f-right" v-on:click="togOrder()"></i>
+        <ul class="header-mod-order" v-show="nav.order" transition="expand" v-on:click="orderBy($event)">
+            <li :class="{on:order_by==0}" data-order="0">默认排序</li>
+            <li :class="{on:order_by=='create_time'}" data-order="create_time">按时间排序</li>
+            <li :class="{on:order_by=='views'}" data-order="views">按点击量排序</li>
+            <li :class="{on:order_by=='likes'}" data-order="likes">按点赞数排序</li>
+        </ul>
+    </div>
+    <div class="header-mod header-search" id="header-search" v-show="nav.mod==1">
+        <div class="header-search-inp">
+            <span class="header-search-inp-txt"><input type="text" class="inp" placeholder="请输入关键词" maxlength="50" v-model="keyword"/></span>
+            <span class="header-search-inp-bt f-right t-center"><button class="subt lb" v-on:click="search()" v-on:keyup.enter="search()">搜索</button><button class="subt lb" v-on:click="switchNav(0)">取消</button></span>
+        </div>
+    </div>
+</div>
+<div class="main-hd">
+    <div class="main-hd-bnn">
+        <div class="main-hd-bbn-slider swiper-container" id="main-hd-list-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" data-href="detail/video_id={{hd.video_id}}">
+                    <div class="pic-itm responsive-ratio" v-cover-pic='hd.video_cover' data-ratio="4/3"></div>
+                    <div class="main-hd-bbn-tip itm cl-black">
+                        <span class="itm-tit wrap">{{hd.video_title}}</span>
+                        <span class="itm-sub">
+                            <span class="icon-dot"><i class="icon icon-s icon-02"></i><em>{{hd.views||0}}</em></span>
+                            <span class="icon-dot"><i class="icon icon-s icon-03"></i><em>{{hd.comments||0}}</em></span>
+                            <span class="icon-dot"><i class="icon icon-s icon-04"></i><em>{{hd.likes||0}}</em></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="swiper-pagination"></div>-->
+        </div>
+    </div>
+</div>
+<!--<div v-for="vv in pList[0]">{{vv}}</div>-->
+<div class="eye-list clear-after">
+    <ul class="clear-after">
+        <li v-for="v in pList | limitBy 5 1" data-id="{{v.id}}">
+            <div class="pic-itm responsive-ratio" v-cover-pic="v.video_cover" data-href="detail/video_id={{v.id}}" data-ratio="4/3"></div>
+            <div class="eye-list-tip">
+                <div class="t h4 wrap" data-href="detail/video_id={{v.id}}">{{v.video_title||"暂无标题"}}</div>
+                <div class="c">
+                    <span class="icon-dot"><i class="icon icon-s icon-02"></i><em>{{v.views||0}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-03"></i><em>{{v.comments||0}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-04"></i><em>{{v.likes||0}}</em></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <!--<div class="edge">更多>></div>-->
+    <ul class="clear-after">
+        <li v-for="v in list | orderBy order_by -1" data-id="{{v.id}}">
+            <div class="pic-itm responsive-ratio" v-cover-pic="v.video_cover" data-href="detail/video_id={{v.id}}" class="responsive-ratio" data-ratio="4/3"></div>
+            <div class="eye-list-tip">
+                <div class="t h4 wrap" data-href="detail/video_id={{v.id}}">{{v.video_title||"暂无标题"}}</div>
+                <div class="c">
+                    <span class="icon-dot"><i class="icon icon-s icon-02"></i><em>{{v.views||0}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-03"></i><em>{{v.comments||0}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-04"></i><em>{{v.likes||0}}</em></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="loading-more t-center" v-show="end"><img class="loading-more-pending" src="images/loading_more.gif" v-show="hasMore"/><span class="loading-more-end t-center h4 cl-grey" v-show="!hasMore">———— 我是有底线的 ————</span></div>
+</div>
+<div class="j-footer bg-fr" id="j-footer">
+    <div class="footer-to" id="j-footer-to" data-page-sync="false"></div>
+    <!--<div class="footer-to" id="j-footer-to" data-page-sync="false"><em data-href="main">首页</em></div>-->
+    <!--<ul><li data-href="^usr=u" data-page-sync="false"></li><li data-href="main/city_id=1">北京市</li><li data-href="main">全国</li></ul>-->
+</div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="cpViewpoint" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui;">
+    <title id="document-title">表单</title>
+    <link rel="stylesheet" href="css/style.less.css"/>
+    <link rel="stylesheet" href="css/eye.less.css"/>
+</head>
+<body>
+    <div class="edit-con bg-bg">
+        <div class="itm modi auto hasborder">
+            <span class="itm-tit">选择：</span>
+            <span class="itm-sub">
+                <select class="sel">
+                    <option>选项一</option>
+                    <option>选项二</option>
+                </select>
+            </span>
+        </div>
+        <div class="itm modi auto hasborder">
+            <span class="itm-tit">标题：</span>
+            <span class="itm-sub"><input type="input" class="inp" placeholder="请输入标题" v-model="video_title" :value="v.video_title"/></span>
+        </div>
+        <div class="itm">介绍</div>
+        <div class="itm hasborder">
+            <span class="itm-sub"><textarea type="text" class="area auto" placeholder="请输入一段简单的介绍" maxlength="140" v-model="video_desc" :value="v.video_desc"></textarea></span>
+        </div>
+        <div class="itm"><span class="itm-sub"><button class="subt full" v-on:click='fnSub'>提交</button></span></div>
+    </div>
+</body>
+</html>

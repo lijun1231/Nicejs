@@ -1,0 +1,33 @@
+<div class="admin-reg-con bg-bg">
+    <div class="itm auto">
+        <span class="itm-tit">姓名：</span>
+        <span class="itm-sub">{{v.user_name}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">手机：</span>
+        <span class="itm-sub">{{v.mobile}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">邮箱：</span>
+        <span class="itm-sub">{{v.user_email}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">所在单位：</span>
+        <span class="itm-sub">{{v.user_units}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">职务：</span>
+        <span class="itm-sub">{{v.user_duty}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">申请说明：</span>
+        <span class="itm-sub">{{v.user_application}}</span>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">权限：</span>
+        <span class="itm-sub eye-con-tags admin-check-tags">
+            <em v-for="atag in v.role_list" @click="toggleTag(atag.id, $event)" :class="['disp-b','f-left','clear-fix',{on:atag.c}]">{{atag.name}}</em>
+        </span>
+    </div>
+    <div class="itm"><span class="itm-sub"><button class="subt full" @click='fnSub($this)'>提交</button></span></div>
+</div>

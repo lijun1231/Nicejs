@@ -1,0 +1,19 @@
+<style type="text/css">
+    .itm-sub.on{color:#900;}
+</style>
+<div class="itm auto hasborder" v-for="(index,v) of hash">
+    <span class="itm-tit">{{index}}：</span>
+    <span class="itm-sub">{{v|date}}</span>
+</div>
+<div class="itm auto hasborder">-{{hash.src|http}}</div>
+<div class="itm auto hasborder" v-demo:hello.a.b.c="hash"></div>
+<div class="itm auto hasborder">
+    <span class="itm-sub"><input type="text" class="inp" placeholder="姓名" v-model="name" v-demo-inp:hello/></span>
+</div>
+<div class="itm auto hasborder">
+    <span class="itm-sub" v-style="{cl:'white',bg:'000'}">自定义指令style</span>
+</div>
+<div class="itm auto hasborder">
+    <span class="itm-tit" v-example-cond="close">×</span>
+    <span class="itm-sub" v-example :start="name" end="!">自定义指令example</span>
+</div>

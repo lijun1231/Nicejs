@@ -1,0 +1,55 @@
+<div class="usr-box" v-show="view=='u'" id="usr-center">
+    <div class="usr-box-hd t-center">
+        <h2 class="usr-box-hd-nick t-center">{{info.nickname}}</h2>
+        <img class="radius" :src="info.portrait" />
+    </div>
+    <div class="usr-box-con">
+        <div class="usr-box-con-grade">
+            <i></i>
+            <h2>等级2级</h2>
+            <ul class="usr-box-con-grade-list">
+                <li data-href="^usr=0" data-page-sync="false"><i class="icon icon-10"></i><em>待审核</em></li>
+                <li data-href="^usr=2" data-page-sync="false"><i class="icon icon-09"></i><em>已驳回</em></li>
+                <li data-href="^usr=1" data-page-sync="false"><i class="icon icon-11"></i><em>已发布</em></li>
+                <li data-href="^usr=r1" data-page-sync="false"><i class="icon icon-12"></i><em>市排名</em></li>
+                <li data-href="^usr=r2" data-page-sync="false"><i class="icon icon-12"></i><em>全国排名</em></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="pool-box" v-show="view==0||view==1||view==2" id="usr-list">
+    <nav class="pool-box-hd">
+        <ul class="pool-box-hd-list">
+            <li data-href="^usr=1" data-page-sync="false" :class="{on:view==1}">已发布</li>
+            <li data-href="^usr=0" data-page-sync="false" :class="{on:view==0}">待审核</li>
+            <li data-href="^usr=2" data-page-sync="false" :class="{on:view==2}">已驳回</li>
+            <!--<li data-href="^usr=99" data-page-sync="false" :class="{on:view==99}">审核中</li>-->
+        </ul>
+    </nav>
+    <ul class="pool-box-list clear-after">
+        <li v-for="v in list" class="clear-fix">
+            <div class="pool-box-list-pic" data-href="detail/video_id={{v.video_id}}"><div class="pic-itm responsive-ratio" v-cover-pic='v.video_cover' data-ratio="4/3"></div></div>
+            <div class="pool-box-list-detail">
+                <span class="fb pool-box-list-detail-tit" data-href="detail/video_id={{v.video_id}}">{{v.video_title||"暂无标题"}}</span>
+                <span class="pool-box-list-detail-in" data-href="detail/video_id=01">{{v.video_desc||"暂无描述"}}</span>
+                <span class="pool-box-list-detail-dots">
+                    <span class="icon-dot"><i class="icon icon-s icon-02"></i><em>{{v.views}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-03"></i><em>{{v.likes}}</em></span>
+                    <span class="icon-dot"><i class="icon icon-s icon-04"></i><em>{{v.likes}}</em></span>
+                </span>
+                <span class="h5 clear-fix">{{v.create_time|date}}</span>
+            </div>
+            <div class="pool-box-list-cond clear-fix" v-if="view==0||view==2">
+                <button class="subt lb" data-href="edit/video_id={{v.video_id}}">编辑</button><button class="subt lb" v-on:click="del(v.video_id)">删除</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="rank-box" v-show="view=='r1'||view=='r2'" id="usr-rank">
+    <div class="usr-rank-tit t-center">您在<em>{{view=='r1'?'全市':'全国'}}</em>排名第<em class="cl-red">1</em>位</div>
+    <ul :class="['usr-rank-tb',ready?'in':'']">
+        <li class='itm' v-for="v in ranks"><em class="itm-tit">{{v.nickname}}</em><i class="itm-sub" :style="{width:v.rate}">{{v.numbers}}</i></li>
+        <li class="me itm"><em class="itm-tit">我的发布</em><i class="itm-sub" :style="{width:myrank.rate}">{{myrank.numbers}}</i></li>
+    </ul>
+    <span class="usr-rank-tip">已发布视频</span>
+</div>

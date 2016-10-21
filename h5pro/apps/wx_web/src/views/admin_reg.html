@@ -1,0 +1,27 @@
+<div class="admin-reg-con bg-bg">
+    <div :class="['itm','modi','auto','hasborder',{warn:!name_able}]">
+        <span class="itm-tit">姓名：</span>
+        <span class="itm-sub"><input type="text" class="inp" placeholder="请输入真是姓名" v-model="user_name | trim" maxlength="10" data-format-null="姓名不能为空"/></span>
+    </div>
+    <div class="itm modi auto hasborder">
+        <span class="itm-tit">手机：</span>
+        <span class="itm-sub"><input type="number" class="inp" placeholder="请输入手机号码" v-model="mobile | trim" v-form-format="mobile" data-format-null="手机号不能为空"/></span>
+    </div>
+    <div class="itm modi auto hasborder">
+        <span class="itm-tit">邮箱：</span>
+        <span class="itm-sub"><input type="text" class="inp" placeholder="请输入邮箱" v-model="user_email | trim" v-form-format="email" data-format-null="邮箱不能为空"/></span>
+    </div>
+    <div class="itm modi auto hasborder">
+        <span class="itm-tit">所在单位：</span>
+        <span class="itm-sub"><input type="text" class="inp" placeholder="请输入单位名称" v-model="user_units | trim" data-format-null="单位名称不能为空"/></span>
+    </div>
+    <div class="itm modi auto hasborder">
+        <span class="itm-tit">职务：</span>
+        <span class="itm-sub"><input type="text" class="inp" placeholder="请输入职务" v-model="user_duty | trim" data-format-null="职务不能为空"/></span>
+    </div>
+    <div class="itm modi auto hasborder">
+        <span class="itm-tit">申请说明：</span>
+        <span class="itm-sub"><input type="text" class="inp" placeholder="请输入申请说明" v-model="user_application | trim" /></span>
+    </div>
+    <div class="itm"><span class="itm-sub"><button class="subt full" @click='fnSub'>提交</button></span></div>
+</div>

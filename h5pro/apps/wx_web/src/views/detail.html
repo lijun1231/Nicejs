@@ -1,0 +1,103 @@
+<div class="video-box responsive-ratio" data-ratio="4/3"></div>
+<div class="detail-pro bg-fr" id="detail-pro" v-if="v.owner==1">
+    <div class="itm" v-show="v.status==0">
+        <span class="itm-sub h4 t-center detail-pro-steps">
+                <i class="resolved">视频上传</i>
+                <i class="pending">编辑提交</i>
+                <i class="waiting">审核通过</i>
+                <i class="waiting">发布成功</i>
+        </span>
+        <span class="itm-sub h4">您的视频已经上传进入天眼视频库，您可以对视频进行编辑，审核通过之后就可以被大家看到啦</span>
+    </div>
+    <div class="itm" v-show="v.status==1">
+        <span class="itm-sub h4 t-center detail-pro-steps">
+                <i class="resolved">视频上传</i>
+                <i class="resolved">编辑提交</i>
+                <i class="resolved">审核通过</i>
+                <i class="pending">发布成功</i>
+        </span>
+        <span class="itm-sub h4">您的视频已经发布成功，发布成功后不可编辑</span>
+    </div>
+    <div class="itm" v-show="v.status==2">
+        <span class="itm-sub h4 t-center detail-pro-steps">
+                <i class="resolved">视频上传</i>
+                <i class="resolved">编辑提交</i>
+                <i class="pending">审核失败</i>
+                <i class="waiting">重新提交</i>
+        </span>
+        <span class="itm-sub h4">您的提交被驳回，原因可能是：视频内容涉及不宜传播内容（黄、赌、毒），您也可以编辑后重新提交</span>
+    </div>
+    <div class="itm" v-show="(v.status!=0&&v.status!=1&&v.status!=2)">
+        <span class="itm-sub h4 t-center detail-pro-steps">
+                <i class="resolved">视频上传</i>
+                <i class="resolved">编辑提交</i>
+                <i class="pending">审核中...</i>
+                <i class="waiting">审核通过</i>
+        </span>
+        <span class="itm-sub h4">您的视频已经上传进入天眼视频库，请您耐心等待，发布成功后我们将在第一时间通知您。审核过程中不能编辑</span>
+    </div>
+
+
+    <div class="detail-pro-cond t-center" v-if="v.status==0||v.status==2">
+        <button class="subt lb" data-href="edit/video_id={{video_id}}">编辑</button>
+        <button class="subt lb" v-on:click="del">删除</button>
+    </div>
+</div>
+<div class="detail-con bg-bg">
+    <div class="itm">
+        <em class="fb">{{v.video_title||"暂无标题"}}</em>
+    </div>
+    <div class="itm auto">
+        <span class="itm-tit">作者：{{v.author}}&nbsp;&nbsp;</span>
+        <span class="itm-sub t-right">创建时间：{{v.create_time}}</span>
+    </div>
+    <div class="itm">
+        <span class="itm-sub">
+            <span>
+                <span class="icon-dot" v-on:click="condTip($event,'rec')"><i class="icon icon-s icon-02"></i><em>{{v.views}}</em></span>
+                <span class="icon-dot"><i class="icon icon-s icon-03"></i><em>{{v.comments}}</em></span>
+                <span class="icon-dot" v-on:click="condTip($event,'like')"><i :class="['icon','icon-s',v.liked?'icon-13':'icon-04']"></i><em>{{v.likes}}</em></span>
+            </span>
+        </span>
+    </div>
+</div>
+<div class="bg-fr"><div class="itm auto"><span class="itm-tit">标签：</span><span class="itm-sub"><em v-for="tag in v.tags">{{tag.tag_name}} </em></span></div></div>
+<div class="detail-con bg-bg">
+    <div class="itm">
+        <h3>介绍</h3>
+        <p class="detail-con-desc-con">{{v.video_desc||"暂无介绍"}}</p>
+    </div>
+</div>
+<div class="detail-comment" id="detail-comment">
+    <div class="detail-comment-inp">
+        <div class="itm">
+            <span class="itm-sub">
+                <textarea type="text" class="area auto" placeholder="我要说两句" maxlength="140" v-model="comment | trim"></textarea>
+                <button class="subt full bg-fr detail-comment-subt" v-on:click="fnComment($event)">提交</button>
+            </span>
+        </div>
+    </div>
+    <!--<coment-list v-bind:vid='{{v.video_id}}'></coment-list>-->
+    <ul class="detail-comment-list" id="detail-comment-list">
+        <coment-list :vid.sync='video_id' :cmt.sync="cmt" v-ref:comments></coment-list>
+        <!--<li v-for="c in cmt" data-id="{{c.uid}}">-->
+
+            <!--<div class="itm auto">-->
+                <!--<span class="itm-tit"><img src="images/1.jpg" class="detail-comment-pic eq-wh radius"/></span>-->
+                <!--<span class="itm-sub">-->
+                    <!--<h3 class="detail-comment-t disp-b">京城三少 {{v.create_time}}</h3>-->
+                    <!--<span class="detail-comment-p disp-b">{{v.content}}</span>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<div class="itm auto">-->
+                <!--<span class="itm-tit"><img src="images/2.jpg" class="detail-comment-pic eq-wh radius"/></span>-->
+                <!--<span class="itm-sub">-->
+                    <!--<h3 class="detail-comment-t disp-b">京城三少 2016-8-17</h3>-->
+                    <!--<span class="detail-comment-p disp-b">评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容</span>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</li>-->
+    </ul>
+</div>
