@@ -1,12 +1,13 @@
 //创建时间：2016年4月26日 15:38:34
 //创建人：李君
 //说明：community
+Nice.noConflict().useKey('__');//让出_，并用__作为替代关键字
 var oUserinfo={
-    wid:Util.getUrlval("wid")||"ctb_love",
-    openid:Util.getUrlval("openid")||"love_chetuobang_forever_543720",
-    uid:Util.getUrlval("uid")||"love_chetuobang_forever_1314",
-    unid:Util.getUrlval("unid")||"love_chetuobang",
-    from:Util.getUrlval("from")||null
+    wid:__.lib.getUrlval("wid")||"ctb_love",
+    openid:__.lib.getUrlval("openid")||"love_chetuobang_forever_543720",
+    uid:__.lib.getUrlval("uid")||"love_chetuobang_forever_1314",
+    unid:__.lib.getUrlval("unid")||"love_chetuobang",
+    from:__.lib.getUrlval("from")||null
 };
 var oDocinfo={};
 //初始化框架
@@ -18,7 +19,6 @@ j_m.oVersion.addr={
     'wx_callback':"",
     'file':""
 };
-Nice.noConflict().useKey('__');//让出_，并用__作为替代关键字
 var catalogRoot=location.href.substring(0,location.href.lastIndexOf("/"+j_m.oVersion.name+"/")+j_m.oVersion.name.length+1);//项目目录
 var cpViewpoint = document.getElementById("cpViewpoint");
 var shareTitle="车托帮 | 车主社区！";
@@ -45,10 +45,10 @@ $(function(){
             }
             //loadCarList();//加载车型
         }();
-        Util.clearAllCookies();
+        __.lib.clearAllCookies();
+        __.lib.responsiveScaling();
         Util.landscapeTip(true);//横屏提示
         wxSdkApply();//微信sdk
-        Util.responsiveScaling();
     }();
     //access
     !function(){
