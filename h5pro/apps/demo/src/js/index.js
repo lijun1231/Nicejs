@@ -113,7 +113,7 @@ $(function(){
             cc();//页面渲染
         },{
             style:['css/main1.css','css/main2.css'],
-            js:['js/main.js']
+            js:['js/main.js','js/es6_test.js']
         });
         j_m.extend("list",function(cc){
             var $page=$(j_m.currPage[0]);
