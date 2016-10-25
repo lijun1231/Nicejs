@@ -1,6 +1,9 @@
 //导入工具包 require
 var gulp = require('gulp'),
     del = require('del'),
+    events = require('events'),
+    emitter = new events.EventEmitter(),
+    moment = require('moment'),
     fs=require('fs'),
     lib = require('./create/gulpfile_lib'),
     formateNm=lib.formateNm,
@@ -10,22 +13,29 @@ var gulp = require('gulp'),
     livereload=require('gulp-livereload'),
     less = require('gulp-less'),
     jshint = require('gulp-jshint'),
+    concat = require('gulp-concat'),
+    dest = require('gulp-dest'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     cache = require('gulp-cache'),
     notify = require('gulp-notify'),
     connect = require('gulp-connect'),
+    gulpif = require('gulp-if'),
+    useref=require('gulp-useref'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
     minifyhtml = require('gulp-minify-html'),
+    gulpignore=require('gulp-ignore'),
+    filter = require('gulp-filter'),
+    assetManifest=require('gulp-asset-manifest'),
+    flatten=require('gulp-flatten'),
     clean=require('gulp-clean'),
     runSequence = require('gulp-sequence'),
     plumber = require('gulp-plumber'),//防止因为报错而中止watch的实时监听
     watch = require('gulp-watch'),
-    gulp_remove_logging=require("gulp-remove-logging"),
     zip = require('gulp-zip'),
-    fileinclude  = require('gulp-file-include');
+    gulp_remove_logging=require("gulp-remove-logging");
 var taskVersion="",//备份版本号
     projectName=__dirname.substr(__dirname.lastIndexOf('\\')+1);//项目名称
 
@@ -350,12 +360,9 @@ gulp.task('default',['connect','live']);
 /////////////////////////////////
 gulp.task('test', function() {
     console.log(__dirname);
-    gulp.src(paths.src+'/*.html')
-        .pipe(fileinclude({
-            prefix:'@@',
-            basepath:'@file'
-        }))
-        .pipe(gulp.dest(paths.src+'/assets'))
+    gulp.src(paths.src+'/images*/*.*')
+        .pipe(rev())
+        .pipe(gulp.dest(paths.server+'/assets'))
         .pipe(notify({message:'test task complete'}));
 });
 /////////////////////////////////////////////////////////////////////////////////extends
